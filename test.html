@@ -42,7 +42,7 @@
         scroll-behavior: smooth;
       }
 
-      /* --- COOL ANIMATION: SCANLINE --- */
+      /* --- SCANLINE ANIMATION --- */
       body::after {
         content: "";
         position: fixed;
@@ -60,29 +60,31 @@
         z-index: 1000;
       }
 
-      /* --- GLITCH EFFECT FOR H1 --- */
-      .glitch {
-        position: relative;
-        animation: shake 5s infinite;
+      /* --- DASHBOARD THEME TOGGLE (Floating) --- */
+      #dashboard-theme-btn {
+        display: none; /* Hidden until initialization */
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        z-index: 9999;
+        background: var(--card-bg);
+        color: var(--electric-blue);
+        border: 2px solid var(--electric-blue);
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-family: "Orbitron", sans-serif;
+        font-size: 0.7rem;
+        cursor: pointer;
+        box-shadow: 0 0 15px rgba(0, 114, 255, 0.3);
+        transition: 0.3s;
+      }
+      #dashboard-theme-btn:hover {
+        transform: scale(1.1);
+        background: var(--electric-blue);
+        color: white;
       }
 
-      @keyframes shake {
-        0%,
-        100% {
-          transform: translate(0);
-        }
-        1% {
-          transform: translate(-2px, 2px);
-        }
-        2% {
-          transform: translate(2px, -2px);
-        }
-        3% {
-          transform: translate(0);
-        }
-      }
-
-      /* --- HERO SECTION --- */
+      /* --- HERO & DASHBOARD --- */
       .hero {
         height: 100vh;
         width: 100%;
@@ -101,17 +103,33 @@
         margin: 0;
         text-shadow: 0 0 15px var(--electric-blue);
       }
+      .glitch {
+        position: relative;
+        animation: shake 5s infinite;
+      }
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translate(0);
+        }
+        1% {
+          transform: translate(-2px, 2px);
+        }
+        2% {
+          transform: translate(2px, -2px);
+        }
+        3% {
+          transform: translate(0);
+        }
+      }
 
       .apollo-note {
         font-size: 0.75rem;
         color: var(--muted-text);
         max-width: 500px;
-        min-height: 1.5em;
-        line-height: 1.5;
         margin: 15px 20px;
         font-style: italic;
       }
-
       #countdown {
         margin: 20px;
         font-size: clamp(1.1rem, 4vw, 2rem);
@@ -122,14 +140,12 @@
         background: var(--card-bg);
         box-shadow: 6px 6px 0px var(--electric-blue);
         clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
-        transition: 0.3s;
       }
 
       .btn-group {
         margin-top: 30px;
         display: flex;
         gap: 15px;
-        justify-content: center;
       }
       .btn {
         padding: 12px 30px;
@@ -150,12 +166,7 @@
         color: var(--electric-blue);
         border: 2px solid var(--electric-blue);
       }
-      .btn:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 114, 255, 0.4);
-      }
 
-      /* --- MAIN DASHBOARD --- */
       #main-dashboard {
         display: none;
         width: 100%;
@@ -165,7 +176,6 @@
         padding-top: 60px;
         animation: fadeIn 1.5s ease;
       }
-
       @keyframes fadeIn {
         from {
           opacity: 0;
@@ -185,16 +195,25 @@
         margin: 60px 0 30px 0;
         font-size: 1.1rem;
       }
-
-      #first-section {
-        margin-top: 20px;
-      }
-
-      /* --- LAYOUTS --- */
       .content-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 25px;
+      }
+
+      .content-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-color);
+        padding: 25px;
+        transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        text-decoration: none;
+        color: inherit;
+        display: block;
+      }
+      .content-card:hover {
+        border-color: var(--electric-blue);
+        transform: scale(1.02);
+        box-shadow: 0 10px 30px rgba(0, 114, 255, 0.15);
       }
 
       .playlist-stack {
@@ -204,40 +223,6 @@
         max-width: 600px;
         margin: 0 auto;
       }
-
-      /* --- CARDS --- */
-      .content-card {
-        background: var(--card-bg);
-        border: 1px solid var(--border-color);
-        padding: 25px;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        position: relative;
-        overflow: hidden;
-      }
-
-      .content-card:hover {
-        border-color: var(--electric-blue);
-        transform: scale(1.02);
-        box-shadow: 0 10px 30px rgba(0, 114, 255, 0.15);
-      }
-
-      .card-title {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        color: var(--electric-blue);
-        margin-bottom: 15px;
-        display: block;
-      }
-      .card-body {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        opacity: 0.9;
-      }
-
       .playlist-link {
         display: flex;
         align-items: center;
@@ -249,31 +234,20 @@
         transition: 0.3s;
         border-left: 4px solid var(--electric-blue);
       }
-
       .playlist-link:hover {
         transform: translateX(10px);
         background: rgba(0, 114, 255, 0.05);
       }
-      .playlist-icon {
-        margin-right: 20px;
-        color: #1db954;
-        font-size: 1.5rem;
-        animation: pulse 2s infinite;
+
+      footer {
+        margin-top: 100px;
+        padding: 40px;
+        text-align: center;
+        font-size: 0.65rem;
+        color: var(--muted-text);
+        letter-spacing: 2px;
       }
 
-      @keyframes pulse {
-        0% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.5;
-        }
-        100% {
-          opacity: 1;
-        }
-      }
-
-      /* --- LOADING OVERLAY --- */
       #loading-overlay {
         display: none;
         position: fixed;
@@ -306,15 +280,6 @@
           width: 100%;
         }
       }
-
-      footer {
-        margin-top: 100px;
-        padding: 40px;
-        text-align: center;
-        font-size: 0.65rem;
-        color: var(--muted-text);
-        letter-spacing: 2px;
-      }
     </style>
     <link
       href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap"
@@ -322,15 +287,17 @@
     />
   </head>
   <body>
+    <button id="dashboard-theme-btn" onclick="togglePerformance()">
+      PHASE_SHIFT
+    </button>
+
     <div id="loading-overlay">
       <div class="subtitle">DECRYPTING_FILES...</div>
       <div class="loader"><div class="loader-bar"></div></div>
     </div>
 
     <section class="hero" id="hero-section">
-      <div class="subtitle" style="letter-spacing: 5px">
-        SYSTEM_STATUS: READY
-      </div>
+      <div class="subtitle">SYSTEM_STATUS: READY</div>
       <h1 class="glitch">S_T_A_R_S</h1>
       <p class="apollo-note" id="typewriter"></p>
       <div id="countdown">LOADING...</div>
@@ -345,14 +312,16 @@
     </section>
 
     <div id="main-dashboard">
-      <h2 class="section-header" id="first-section">STORIES ⭑.ᐟ</h2>
+      <h2 class="section-header">STORIES ⭑.ᐟ</h2>
       <div class="content-grid">
         <a
           href="https://docs.google.com/document/d/1P_ukez4LtVYs_qh3v7_2BozUhx71uhUZa51SEJvxZDM/edit?usp=sharing"
           class="content-card"
           target="_blank"
         >
-          <span class="card-title">Log_001</span>
+          <span style="color: var(--electric-blue); font-size: 0.7rem"
+            >LOG_001</span
+          >
           <p class="card-body">The warmth of a Blue Moon.</p>
         </a>
         <a
@@ -360,7 +329,9 @@
           class="content-card"
           target="_blank"
         >
-          <span class="card-title">Log_002</span>
+          <span style="color: var(--electric-blue); font-size: 0.7rem"
+            >LOG_002</span
+          >
           <p class="card-body">Project: Absolute Zero.</p>
         </a>
         <a
@@ -368,55 +339,45 @@
           class="content-card"
           target="_blank"
         >
-          <span class="card-title">Log_003</span>
+          <span style="color: var(--electric-blue); font-size: 0.7rem"
+            >LOG_003</span
+          >
           <p class="card-body">Midnight Circuit</p>
         </a>
       </div>
 
       <h2 class="section-header">PLAYLISTS ⭑.ᐟ</h2>
       <div class="playlist-stack">
-        <a
-          href="https://open.spotify.com/playlist/2ViZwEjXxIllG6XnVVdy3f?si=c96e1e73d6644c35&pt=236913b655338c16a6b7f6e2c0c422b7"
-          class="playlist-link"
-          target="_blank"
-        >
-          <span class="playlist-icon">♫</span>
+        <a href="#" class="playlist-link" target="_blank">
+          <span style="margin-right: 20px">♫</span>
           <div>
             <div style="font-size: 0.8rem; font-weight: bold">
               Warmth of a Blue Moon
             </div>
             <div style="font-size: 0.6rem; opacity: 0.7">
-              may you feel the warmth of a blue moon <3
+              Vibes for the Apollo
             </div>
           </div>
         </a>
-        <a
-          href="https://open.spotify.com/playlist/2gyeb1divHqkziSmtx6c3h?si=7461cead4b504b08&pt=24d7c6c1cc3ec48fa63ec34c869ea353"
-          class="playlist-link"
-          target="_blank"
-        >
-          <span class="playlist-icon">♫</span>
+        <a href="#" class="playlist-link" target="_blank">
+          <span style="margin-right: 20px">♫</span>
           <div>
             <div style="font-size: 0.8rem; font-weight: bold">
-              Project: Absolute Zero
+              Absolute Zero
             </div>
             <div style="font-size: 0.6rem; opacity: 0.7">
-              Maybe you like argon on cake?
+              The cold shift mix
             </div>
           </div>
         </a>
-        <a
-          href="https://open.spotify.com/playlist/55JVOmH2HFLEY9EZ5HBiZG?si=f331e37e958b4b6b"
-          class="playlist-link"
-          target="_blank"
-        >
-          <span class="playlist-icon">♫</span>
+        <a href="#" class="playlist-link" target="_blank">
+          <span style="margin-right: 20px">♫</span>
           <div>
             <div style="font-size: 0.8rem; font-weight: bold">
               Midnight Circuit
             </div>
             <div style="font-size: 0.6rem; opacity: 0.7">
-              A little speed won't hurt.
+              High speed frequencies
             </div>
           </div>
         </a>
@@ -425,23 +386,18 @@
       <h2 class="section-header">POEMS ⭑.ᐟ</h2>
       <div class="content-grid">
         <div class="content-card">
-          <span class="card-title">[1]</span>
           <p class="card-body" style="font-style: italic">
-            "In all the world, there is no heart for me like yours. In all the
-            world, there is no love for you like mine."
+            "In all the world, there is no heart for me like yours."
           </p>
         </div>
         <div class="content-card">
-          <span class="card-title">[2]</span>
           <p class="card-body" style="font-style: italic">
             "I would find you in any lifetime."
           </p>
         </div>
         <div class="content-card">
-          <span class="card-title">[3]</span>
           <p class="card-body" style="font-style: italic">
-            "I saw that you were perfect, and so I loved you. Then I saw that
-            you were not perfect and I loved you even more."
+            "I loved you even more once I saw your true self."
           </p>
         </div>
       </div>
@@ -452,10 +408,10 @@
           <p class="card-body">"Pull me close and hold me true..."</p>
         </div>
         <div class="content-card">
-          <p class="card-body">"To the moon and back, across every galaxy."</p>
+          <p class="card-body">"Love you to the moon and back."</p>
         </div>
         <div class="content-card">
-          <p class="card-body">"You're the engine to my life, my baby boy."</p>
+          <p class="card-body">"I luv u handsome <3"</p>
         </div>
       </div>
 
@@ -503,6 +459,8 @@
           document.getElementById("loading-overlay").style.display = "none";
           document.getElementById("hero-section").style.display = "none";
           document.getElementById("main-dashboard").style.display = "block";
+          document.getElementById("dashboard-theme-btn").style.display =
+            "block"; // Show floating button
           window.scrollTo(0, 0);
         }, 2100);
       }
